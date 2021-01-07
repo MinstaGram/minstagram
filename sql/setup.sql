@@ -15,7 +15,7 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  user TEXT NOT NULL,
+  user BIGINT NOT NULL REFERENCES users(id),
   photo_url TEXT NOT NULL,
   caption TEXT NOT NULL
   tags TEXT[]
@@ -24,16 +24,10 @@ CREATE TABLE posts(
 
 CREATE TABLE comments(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  comment_by BIGINT NOT NULL REFERENCES posts(id),
+  comment_by BIGINT NOT NULL REFERENCES users(id),
   post BIGINT NOT NULL REFERENCES posts(id),
   comment TEXT NOT NULL
 
 );
 
-CREATE TABLE posts_comments(
-  posts_id BIGINT REFERENCES posts(id),
-  comments_id BIGINT REFERENCES comments(id),
-  PRIMARY KEY(posts_id, comments_id)
-
-);
 
