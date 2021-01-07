@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS posts_comments;
+
+-- ---------------------------------------------
 
 CREATE TABLE users(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -12,7 +15,7 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  user TEXT NOT NULL,
+  user BIGINT NOT NULL REFERENCES users(id),
   photo_url TEXT NOT NULL,
   caption TEXT NOT NULL
   tags TEXT[]
@@ -21,8 +24,10 @@ CREATE TABLE posts(
 
 CREATE TABLE comments(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  comment_by BIGINT NOT NULL REFERENCES posts(id),
+  comment_by BIGINT NOT NULL REFERENCES users(id),
   post BIGINT NOT NULL REFERENCES posts(id),
   comment TEXT NOT NULL
 
 );
+
+
