@@ -94,7 +94,7 @@ describe('mockingly_instagram routes', () => {
   })
 
 
-  it('Get a gram from the website', async () => {
+  it('Get all grams from the website', async () => {
 
     await agent
       .post('/api/v1/auth/login')
@@ -117,17 +117,9 @@ describe('mockingly_instagram routes', () => {
 
   it('Get a gram from the website', async () => {
 
-    // await agent
-    //   .post('/api/v1/auth/login/1')
-    //   .send({
-    //     email: 'user@test.com',
-    //     password: 'password'
-    //   });
-
     const response = await agent
       .get('/api/v1/posts/1')
 
-    console.log(response.body)
     expect(response.body).toEqual({
       userId: "1",
       photoUrl: "blaha blah",
@@ -141,6 +133,27 @@ describe('mockingly_instagram routes', () => {
       }]
     })
   });
+
+  it('Updates a gram on website', async () => {
+
+    const response = await agent
+      .put('/api/v1/posts/1')
+      .send({
+        userId: user.body.id,
+        photoUrl: "blaha blah blah blah",
+        caption: "felt cute might delete later, nah",
+        tags: ['#sorrynotsorry', '#blessblessbless']
+      })
+
+    expect(response.body).toEqual({
+      userId: user.body.id,
+      photoUrl: "blaha blah blah blah",
+      caption: "felt cute might delete later, nah",
+      tags: ['#sorrynotsorry', '#blessblessbless']
+    })
+
+
+  })
 
 
 
