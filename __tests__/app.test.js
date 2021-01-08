@@ -113,4 +113,35 @@ describe('mockingly_instagram routes', () => {
       tags: ['sorrynotsorry', 'blessblessbless']
     }])
   });
+
+
+  it('Get a gram from the website', async () => {
+
+    // await agent
+    //   .post('/api/v1/auth/login/1')
+    //   .send({
+    //     email: 'user@test.com',
+    //     password: 'password'
+    //   });
+
+    const response = await agent
+      .get('/api/v1/posts/1')
+
+    console.log(response.body)
+    expect(response.body).toEqual({
+      userId: "1",
+      photoUrl: "blaha blah",
+      caption: "felt cute might delete later",
+      tags: ['sorrynotsorry', 'blessblessbless'],
+      comments: [{
+        id: 1,
+        postId: 1,
+        comment: "I'm here for this",
+        commentBy: 1
+      }]
+    })
+  });
+
+
+
 });
