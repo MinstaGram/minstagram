@@ -4,7 +4,41 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 const { globalAgent } = require('https');
+const { createUsers, createPosts, createComments } = require('../testData.js')
+const Post = require('../lib/models/Post.js')
+const Comment = require('../lib/models/Comment.js')
 
+
+describe('mockingly_instagram bonus routes', () => {
+  beforeAll(() => {
+    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
+  });
+
+  beforeAll(async () => {
+    const users = createUsers();
+
+    for (let user of users) {
+      const response = await request(app)
+        .post('/api/v1/auth/signup')
+        .send(user)
+    }
+
+    const posts = createPosts();
+    for (let post of posts) {
+      const response = await Post.insert(post)
+    }
+
+    const comments = createComments();
+    for (let comment of comments) {
+      await Comment.insert(comment)
+    }
+  })
+
+
+  it('mock test', async () => {
+    console.log('HI DONNY')
+  })
+});
 
 describe('mockingly_instagram routes', () => {
   const agent = request.agent(app);
@@ -17,14 +51,15 @@ describe('mockingly_instagram routes', () => {
   
 // ------------------------------------------
 
+
   it('allows a user to signup via POST', async () => {
     user = await request(app)
       .post('/api/v1/auth/signup')
-      .send({ email: 'user@test.com', password: 'password' })
+      .send({ email: 'User@test.com', password: 'password' })
 
     expect(user.body).toEqual({
       id: expect.any(String),
-      email: 'user@test.com'
+      email: 'User@test.com'
     });
   });
 
@@ -35,13 +70,13 @@ describe('mockingly_instagram routes', () => {
     const respond = await agent
       .post('/api/v1/auth/login')
       .send({
-        email: 'user@test.com',
+        email: 'User@test.com',
         password: 'password'
       });
 
     expect(respond.body).toEqual({
       id: expect.any(String),
-      email: 'user@test.com',
+      email: 'User@test.com',
     });
   });
 
@@ -55,7 +90,7 @@ describe('mockingly_instagram routes', () => {
 
     expect(respond.body).toEqual({
       id: expect.any(String),
-      email: 'user@test.com'
+      email: 'User@test.com'
     });
   });
 
@@ -107,7 +142,7 @@ describe('mockingly_instagram routes', () => {
     await agent
       .post('/api/v1/auth/login')
       .send({
-        email: 'user@test.com',
+        email: 'User@test.com',
         password: 'password'
       });
 
