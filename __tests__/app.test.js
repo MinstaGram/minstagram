@@ -151,10 +151,34 @@ describe('mockingly_instagram routes', () => {
       caption: "felt cute might delete later, nah",
       tags: ['#sorrynotsorry', '#blessblessbless']
     })
+  });
 
+  it('DELETE a comment from a post', async () => {
+
+    const response = await agent
+      .delete('/api/v1/comments/1')
+
+    expect(response.body).toEqual({
+      id: '1',
+      commentBy: '1',
+      postId: '1',
+      comment: "I'm here for this"
+    })
 
   })
 
+  it('DELETE a post', async () => {
 
+    const response = await agent
+      .delete('/api/v1/posts/1')
+
+    expect(response.body).toEqual({
+      userId: user.body.id,
+      photoUrl: "blaha blah blah blah",
+      caption: "felt cute might delete later, nah",
+      tags: ['#sorrynotsorry', '#blessblessbless']
+    })
+
+  })
 
 });
