@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 const { globalAgent } = require('https');
-const { createUsers, createPosts, createComments } = require('./testData.js')
+const { createUsers, createPosts, createComments } = require('../testData.js')
 const Post = require('../lib/models/Post.js')
 const Comment = require('../lib/models/Comment.js')
 
