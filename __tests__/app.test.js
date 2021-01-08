@@ -11,7 +11,7 @@ describe('mockingly_instagram routes', () => {
     return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
   });
 
-  it('allows a user to signup via POST', async() => {
+  it('allows a user to signup via POST', async () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({ email: 'user@test.com', password: 'password' })
@@ -23,7 +23,7 @@ describe('mockingly_instagram routes', () => {
       });
   });
 
-  it('login via POST', async() => { 
+  it('login via POST', async () => {
     // const user = await UserService.create({
     //   email: 'user@test.com',
     //   password: 'password'
@@ -42,14 +42,15 @@ describe('mockingly_instagram routes', () => {
     });
   });
 
-  it('verfy user', async() => {
+
+  it('verfy user', async () => {
     const agent = request.agent(app);
     // const user = await UserService.create({
     //   email: 'user@test.com',
     //   password: 'password'
     // });
 
-    await agent 
+    await agent
       .post('/api/v1/auth/login')
       .send({
         email: 'user@test.com',
@@ -65,25 +66,31 @@ describe('mockingly_instagram routes', () => {
     });
   });
 
-  it('POST a gram to the website', async() => {
-    const response = await request(app)
-    .post('/api/v1/posts')
-    .send({
-      user_id: "1",
-      photo_url: "blaha blah",
-      caption: "felt cute might delete later",
-      tags: [ { hashtag: "#sorrynotsorry",
-                tag:"blessblessbless" } ]
-    });
+  it('POST a gram to the website', async () => {
+    const agent = request.agent(app);
+
+    await agent
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'user@test.com',
+        password: 'password'
+      });
+
+    const response = await agent
+      .post('/api/v1/posts')
+      .send({
+        userId: 1,
+        photoUrl: "blaha blah",
+        caption: "felt cute might delete later",
+        tags: ['sorrynotsorry', 'blessblessbless']
+
+      });
 
     expect(response.body).toEqual({
-      id: "1",
-      user_id: "1",
-      photo_url: "blaha blah",
+      userId: "1",
+      photoUrl: "blaha blah",
       caption: "felt cute might delete later",
-      tags: [ { hashtag: "#sorrynotsorry",
-                tag:"blessblessbless" } ]
-
+      tags: ['sorrynotsorry', 'blessblessbless']
     });
 
   });
