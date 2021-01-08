@@ -48,6 +48,8 @@ describe('mockingly_instagram routes', () => {
     return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
   });
 
+  
+// ------------------------------------------
 
 
   it('allows a user to signup via POST', async () => {
@@ -60,6 +62,8 @@ describe('mockingly_instagram routes', () => {
       email: 'User@test.com'
     });
   });
+
+// ------------------------------------------
 
   it('login via POST', async () => {
 
@@ -77,6 +81,8 @@ describe('mockingly_instagram routes', () => {
   });
 
 
+// ------------------------------------------
+
   it('verfy user', async () => {
 
     const respond = await agent
@@ -87,6 +93,8 @@ describe('mockingly_instagram routes', () => {
       email: 'User@test.com'
     });
   });
+
+// ------------------------------------------
 
   it('POST a gram to the website', async () => {
 

@@ -29,10 +29,14 @@ CREATE TABLE comments(
 
 );
 
+-- ------------users----------------------
+
 -- {
 -- "email":"user@test.com",
 -- "password": "password"
 -- }
+
+-- ------------posts----------------------
 
 -- {
 -- "commentBy":"1",
@@ -40,9 +44,11 @@ CREATE TABLE comments(
 -- "comment": "caption for testing comments 1 user"
 -- }
 
--- {
--- "userId": "1",
--- "photoUrl": "password",
--- "caption": "caption for testing comments 1 user",
--- "tags": "tag 1"
--- }
+-- ------------posts----------------------
+
+{
+"userId": "1",
+"photoUrl": "password",
+"caption": "caption for testing comments 1 user",
+"tags": "tag 1"
+}
