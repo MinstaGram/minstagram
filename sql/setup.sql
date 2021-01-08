@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS comments
+DROP TABLE IF EXISTS comments;
 
 ---------------------------------------------------
 
