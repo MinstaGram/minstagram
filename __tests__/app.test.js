@@ -7,7 +7,7 @@ const { globalAgent } = require('https');
 
 
 describe('mockingly_instagram routes', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
   });
 
@@ -24,10 +24,10 @@ describe('mockingly_instagram routes', () => {
   });
 
   it('login via POST', async() => { 
-    const user = await UserService.create({
-      email: 'user@test.com',
-      password: 'password'
-    });
+    // const user = await UserService.create({
+    //   email: 'user@test.com',
+    //   password: 'password'
+    // });
 
     const respond = await request(app)
       .post('/api/v1/auth/login')
@@ -39,16 +39,15 @@ describe('mockingly_instagram routes', () => {
     expect(respond.body).toEqual({
       id: expect.any(String),
       email: 'user@test.com',
-      // password: 'password'
     });
   });
 
   it('verfy user', async() => {
     const agent = request.agent(app);
-    const user = await UserService.create({
-      email: 'user@test.com',
-      password: 'password'
-    });
+    // const user = await UserService.create({
+    //   email: 'user@test.com',
+    //   password: 'password'
+    // });
 
     await agent 
       .post('/api/v1/auth/login')
@@ -61,7 +60,7 @@ describe('mockingly_instagram routes', () => {
       .get('/api/v1/auth/verify');
 
     expect(respond.body).toEqual({
-      id:user.id,
+      id: expect.any(String),
       email: 'user@test.com'
     });
   });
@@ -87,7 +86,7 @@ describe('mockingly_instagram routes', () => {
 
     });
 
-    });
+  });
 
 
 });
