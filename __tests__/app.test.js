@@ -40,180 +40,180 @@ describe('mockingly_instagram bonus routes', () => {
   })
 });
 
-describe('mockingly_instagram routes', () => {
-  const agent = request.agent(app);
-  var user;
+// describe('mockingly_instagram routes', () => {
+//   const agent = request.agent(app);
+//   var user;
 
-  beforeAll(() => {
-    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
-  });
-
-
-
-  it('allows a user to signup via POST', async () => {
-    user = await request(app)
-      .post('/api/v1/auth/signup')
-      .send({ email: 'User@test.com', password: 'password' })
-
-    expect(user.body).toEqual({
-      id: expect.any(String),
-      email: 'User@test.com'
-    });
-  });
-
-  it('login via POST', async () => {
-
-    const respond = await agent
-      .post('/api/v1/auth/login')
-      .send({
-        email: 'User@test.com',
-        password: 'password'
-      });
-
-    expect(respond.body).toEqual({
-      id: expect.any(String),
-      email: 'User@test.com',
-    });
-  });
+//   beforeAll(() => {
+//     return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
+//   });
 
 
-  it('verfy user', async () => {
 
-    const respond = await agent
-      .get('/api/v1/auth/verify');
+//   it('allows a user to signup via POST', async () => {
+//     user = await request(app)
+//       .post('/api/v1/auth/signup')
+//       .send({ email: 'User@test.com', password: 'password' })
 
-    expect(respond.body).toEqual({
-      id: expect.any(String),
-      email: 'User@test.com'
-    });
-  });
+//     expect(user.body).toEqual({
+//       id: expect.any(String),
+//       email: 'User@test.com'
+//     });
+//   });
 
-  it('POST a gram to the website', async () => {
+//   it('login via POST', async () => {
 
-    const response = await agent
-      .post('/api/v1/posts')
-      .send({
-        userId: user.body.id,
-        photoUrl: "blaha blah",
-        caption: "felt cute might delete later",
-        tags: ['sorrynotsorry', 'blessblessbless']
+//     const respond = await agent
+//       .post('/api/v1/auth/login')
+//       .send({
+//         email: 'User@test.com',
+//         password: 'password'
+//       });
 
-      });
-
-    expect(response.body).toEqual({
-      userId: user.body.id,
-      photoUrl: "blaha blah",
-      caption: "felt cute might delete later",
-      tags: ['sorrynotsorry', 'blessblessbless']
-    });
-
-  });
-
-  it('POST a comment to our post', async () => {
-
-    const response = await agent
-      .post('/api/v1/comments')
-      .send({
-        commentBy: 1,
-        postId: 1,
-        comment: "I'm here for this"
-      });
-
-    expect(response.body).toEqual({
-      id: '1',
-      commentBy: '1',
-      postId: '1',
-      comment: "I'm here for this"
-    })
-
-  })
+//     expect(respond.body).toEqual({
+//       id: expect.any(String),
+//       email: 'User@test.com',
+//     });
+//   });
 
 
-  it('Get all grams from the website', async () => {
+//   it('verfy user', async () => {
 
-    await agent
-      .post('/api/v1/auth/login')
-      .send({
-        email: 'User@test.com',
-        password: 'password'
-      });
+//     const respond = await agent
+//       .get('/api/v1/auth/verify');
 
-    const response = await agent
-      .get('/api/v1/posts/')
+//     expect(respond.body).toEqual({
+//       id: expect.any(String),
+//       email: 'User@test.com'
+//     });
+//   });
 
-    expect(response.body).toEqual([{
-      userId: "1",
-      photoUrl: "blaha blah",
-      caption: "felt cute might delete later",
-      tags: ['sorrynotsorry', 'blessblessbless']
-    }])
-  });
+//   it('POST a gram to the website', async () => {
+
+//     const response = await agent
+//       .post('/api/v1/posts')
+//       .send({
+//         userId: user.body.id,
+//         photoUrl: "blaha blah",
+//         caption: "felt cute might delete later",
+//         tags: ['sorrynotsorry', 'blessblessbless']
+
+//       });
+
+//     expect(response.body).toEqual({
+//       userId: user.body.id,
+//       photoUrl: "blaha blah",
+//       caption: "felt cute might delete later",
+//       tags: ['sorrynotsorry', 'blessblessbless']
+//     });
+
+//   });
+
+//   it('POST a comment to our post', async () => {
+
+//     const response = await agent
+//       .post('/api/v1/comments')
+//       .send({
+//         commentBy: 1,
+//         postId: 1,
+//         comment: "I'm here for this"
+//       });
+
+//     expect(response.body).toEqual({
+//       id: '1',
+//       commentBy: '1',
+//       postId: '1',
+//       comment: "I'm here for this"
+//     })
+
+//   })
 
 
-  it('Get a gram from the website', async () => {
+//   it('Get all grams from the website', async () => {
 
-    const response = await agent
-      .get('/api/v1/posts/1')
+//     await agent
+//       .post('/api/v1/auth/login')
+//       .send({
+//         email: 'User@test.com',
+//         password: 'password'
+//       });
 
-    expect(response.body).toEqual({
-      userId: "1",
-      photoUrl: "blaha blah",
-      caption: "felt cute might delete later",
-      tags: ['sorrynotsorry', 'blessblessbless'],
-      comments: [{
-        id: 1,
-        postId: 1,
-        comment: "I'm here for this",
-        commentBy: 1
-      }]
-    })
-  });
+//     const response = await agent
+//       .get('/api/v1/posts/')
 
-  it('Updates a gram on website', async () => {
+//     expect(response.body).toEqual([{
+//       userId: "1",
+//       photoUrl: "blaha blah",
+//       caption: "felt cute might delete later",
+//       tags: ['sorrynotsorry', 'blessblessbless']
+//     }])
+//   });
 
-    const response = await agent
-      .put('/api/v1/posts/1')
-      .send({
-        userId: user.body.id,
-        photoUrl: "blaha blah blah blah",
-        caption: "felt cute might delete later, nah",
-        tags: ['#sorrynotsorry', '#blessblessbless']
-      })
 
-    expect(response.body).toEqual({
-      userId: user.body.id,
-      photoUrl: "blaha blah blah blah",
-      caption: "felt cute might delete later, nah",
-      tags: ['#sorrynotsorry', '#blessblessbless']
-    })
-  });
+//   it('Get a gram from the website', async () => {
 
-  it('DELETE a comment from a post', async () => {
+//     const response = await agent
+//       .get('/api/v1/posts/1')
 
-    const response = await agent
-      .delete('/api/v1/comments/1')
+//     expect(response.body).toEqual({
+//       userId: "1",
+//       photoUrl: "blaha blah",
+//       caption: "felt cute might delete later",
+//       tags: ['sorrynotsorry', 'blessblessbless'],
+//       comments: [{
+//         id: 1,
+//         postId: 1,
+//         comment: "I'm here for this",
+//         commentBy: 1
+//       }]
+//     })
+//   });
 
-    expect(response.body).toEqual({
-      id: '1',
-      commentBy: '1',
-      postId: '1',
-      comment: "I'm here for this"
-    })
+//   it('Updates a gram on website', async () => {
 
-  })
+//     const response = await agent
+//       .put('/api/v1/posts/1')
+//       .send({
+//         userId: user.body.id,
+//         photoUrl: "blaha blah blah blah",
+//         caption: "felt cute might delete later, nah",
+//         tags: ['#sorrynotsorry', '#blessblessbless']
+//       })
 
-  it('DELETE a post', async () => {
+//     expect(response.body).toEqual({
+//       userId: user.body.id,
+//       photoUrl: "blaha blah blah blah",
+//       caption: "felt cute might delete later, nah",
+//       tags: ['#sorrynotsorry', '#blessblessbless']
+//     })
+//   });
 
-    const response = await agent
-      .delete('/api/v1/posts/1')
+//   it('DELETE a comment from a post', async () => {
 
-    expect(response.body).toEqual({
-      userId: user.body.id,
-      photoUrl: "blaha blah blah blah",
-      caption: "felt cute might delete later, nah",
-      tags: ['#sorrynotsorry', '#blessblessbless']
-    })
+//     const response = await agent
+//       .delete('/api/v1/comments/1')
 
-  })
+//     expect(response.body).toEqual({
+//       id: '1',
+//       commentBy: '1',
+//       postId: '1',
+//       comment: "I'm here for this"
+//     })
 
-});
+//   })
+
+//   it('DELETE a post', async () => {
+
+//     const response = await agent
+//       .delete('/api/v1/posts/1')
+
+//     expect(response.body).toEqual({
+//       userId: user.body.id,
+//       photoUrl: "blaha blah blah blah",
+//       caption: "felt cute might delete later, nah",
+//       tags: ['#sorrynotsorry', '#blessblessbless']
+//     })
+
+//   })
+
+// });
