@@ -1,6 +1,7 @@
 
 const createUsers = () => {
     let userArray = [];
+
     for (let i = 1; i < 11; i++) {
         userArray.push({
             email: `user${i}@test.com`,
@@ -12,13 +13,13 @@ const createUsers = () => {
 
 const createPosts = () => {
     let postArray = [];
-    for (let i = 1; i < 11; i++) {
 
+    for (let i = 1; i < 11; i++) {
         for (let j = i; j < 11; j++) {
             postArray.push({
                 userId: i,
                 photoUrl: `{www.${j}.com}`,
-                caption: `picture of ${i}`,
+                caption: `picture of ${i} + ${j}`,
                 tags: ['#blessed', '#nofilter']
             })
         }

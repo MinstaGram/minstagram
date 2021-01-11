@@ -228,61 +228,61 @@ describe('mockingly_instagram tests posts/popular', () => {
       {
         userId: '10',
         photoUrl: '{www.10.com}',
-        caption: 'picture of 10',
+        caption: 'picture of 10 + 10',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '9',
         photoUrl: '{www.10.com}',
-        caption: 'picture of 9',
+        caption: 'picture of 9 + 10',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '9',
         photoUrl: '{www.9.com}',
-        caption: 'picture of 9',
+        caption: 'picture of 9 + 9',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '8',
         photoUrl: '{www.10.com}',
-        caption: 'picture of 8',
+        caption: 'picture of 8 + 10',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '8',
         photoUrl: '{www.9.com}',
-        caption: 'picture of 8',
+        caption: 'picture of 8 + 9',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '8',
         photoUrl: '{www.8.com}',
-        caption: 'picture of 8',
+        caption: 'picture of 8 + 8',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '7',
         photoUrl: '{www.10.com}',
-        caption: 'picture of 7',
+        caption: 'picture of 7 + 10',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '7',
         photoUrl: '{www.9.com}',
-        caption: 'picture of 7',
+        caption: 'picture of 7 + 9',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '7',
         photoUrl: '{www.8.com}',
-        caption: 'picture of 7',
+        caption: 'picture of 7 + 8',
         tags: ['#blessed', '#nofilter']
       },
       {
         userId: '7',
         photoUrl: '{www.7.com}',
-        caption: 'picture of 7',
+        caption: 'picture of 7 + 7',
         tags: ['#blessed', '#nofilter']
       }
     ]);
