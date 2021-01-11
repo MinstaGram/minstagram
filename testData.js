@@ -1,5 +1,5 @@
 const TOTAL_USERS = 11;
-const TOTAL_POSTS = 55;
+const TOTAL_POSTS = 11;
 const COMMENTS_PER_POST = 25;
 
 const createUsers = () => {
