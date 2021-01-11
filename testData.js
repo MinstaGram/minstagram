@@ -31,7 +31,7 @@ const createComments = () => {
 
     for (let i = 1; i < 11; i++) {
         for (let j = 1; j < 55; j++) {
-            for (let k = j; k < 11; k++) {
+            for (let k = j; k < 25; k++) {
                 commentArray.push({
                     commentBy: i,
                     postId: j,
