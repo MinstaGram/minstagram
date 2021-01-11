@@ -35,7 +35,7 @@ const createComments = () => {
                 commentArray.push({
                     commentBy: i,
                     postId: j,
-                    comment: `representing ${i}`
+                    comment: `representing ${i} ${j} ${k}`
                 })
             }
         }
