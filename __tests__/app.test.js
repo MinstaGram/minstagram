@@ -10,7 +10,7 @@ const Comment = require('../lib/models/Comment.js')
 const User = require('../lib/models/User.js')
 
 
-describe('mockingly_instagram routes', () => {
+describe('tests mockingly_instagram routes', () => {
   const agent = request.agent(app);
   var user;
 
@@ -21,7 +21,7 @@ describe('mockingly_instagram routes', () => {
 
   // ------------------------------------------
 
-  it('allows a user to signup via POST', async () => {
+  it('allows a user to signup via /auth', async () => {
     user = await request(app)
       .post('/api/v1/auth/signup')
       .send({ email: 'user@test.com', password: 'password' })
@@ -34,7 +34,7 @@ describe('mockingly_instagram routes', () => {
 
   // ------------------------------------------
 
-  it('login via POST', async () => {
+  it('login via /auth', async () => {
 
     const respond = await agent
       .post('/api/v1/auth/login')
@@ -52,7 +52,7 @@ describe('mockingly_instagram routes', () => {
 
   // ------------------------------------------
 
-  it('verfy user', async () => {
+  it('verfy user via /auth', async () => {
 
     const respond = await agent
       .get('/api/v1/auth/verify');
@@ -65,7 +65,7 @@ describe('mockingly_instagram routes', () => {
 
   // ------------------------------------------
 
-  it('POST a gram to the website', async () => {
+  it('inserts a gram via /posts', async () => {
 
     const response = await agent
       .post('/api/v1/posts')
@@ -86,7 +86,7 @@ describe('mockingly_instagram routes', () => {
 
   });
 
-  it('POST a comment to our post', async () => {
+  it('inserts a comment via /comments', async () => {
 
     const response = await agent
       .post('/api/v1/comments')
@@ -106,7 +106,7 @@ describe('mockingly_instagram routes', () => {
   })
 
 
-  it('Get all grams from the website', async () => {
+  it('returns all grams via /posts', async () => {
 
     await agent
       .post('/api/v1/auth/login')
@@ -127,7 +127,7 @@ describe('mockingly_instagram routes', () => {
   });
 
 
-  it('Get a gram from the website', async () => {
+  it('returns one gram via /posts/:id', async () => {
 
     const response = await agent
       .get('/api/v1/posts/1')
@@ -146,7 +146,7 @@ describe('mockingly_instagram routes', () => {
     })
   });
 
-  it('Updates a gram on website', async () => {
+  it('updates a gram via /posts/:id', async () => {
 
     const response = await agent
       .put('/api/v1/posts/1')
@@ -165,7 +165,7 @@ describe('mockingly_instagram routes', () => {
     })
   });
 
-  it('DELETE a comment from a post', async () => {
+  it('deletes a comment via /comments/:id', async () => {
 
     const response = await agent
       .delete('/api/v1/comments/1')
@@ -179,7 +179,7 @@ describe('mockingly_instagram routes', () => {
 
   })
 
-  it('DELETE a post', async () => {
+  it('deletes a gram via /posts/:id', async () => {
 
     const response = await agent
       .delete('/api/v1/posts/1')
@@ -195,7 +195,7 @@ describe('mockingly_instagram routes', () => {
 
 });
 
-describe('mockingly_instagram bonus routes', () => {
+describe('mockingly_instagram tests posts/popular', () => {
   const agent = request.agent(app);
 
   beforeAll(() => {
@@ -203,10 +203,10 @@ describe('mockingly_instagram bonus routes', () => {
   });
 
   beforeAll(async () => {
-    const users = createUsers();
 
+    const users = createUsers();
     for (let user of users) {
-      const response = await User.insert(user)
+      await User.insert(user)
     }
 
     const posts = await createPosts();
@@ -223,7 +223,7 @@ describe('mockingly_instagram bonus routes', () => {
 
   it('test /post/popular', async () => {
 
-    const response = await request(app)
+    const response = await agent
       .get('/api/v1/posts/popular')
 
     expect(response.body).toEqual([
