@@ -5,6 +5,7 @@ const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 const { globalAgent } = require('https');
 
+// ------------------------------------------
 
 describe('mockingly_instagram routes', () => {
   const agent = request.agent(app);
@@ -79,8 +80,9 @@ describe('mockingly_instagram routes', () => {
       caption: "felt cute might delete later",
       tags: ['sorrynotsorry', 'blessblessbless']
     });
-
   });
+
+// ------------------------------------------
 
   it('POST a comment to our post', async () => {
 
@@ -98,9 +100,9 @@ describe('mockingly_instagram routes', () => {
       postId: '1',
       comment: "I'm here for this"
     })
-
   })
 
+// ------------------------------------------
 
   it('Get all grams from the website', async () => {
 
@@ -122,6 +124,7 @@ describe('mockingly_instagram routes', () => {
     }])
   });
 
+// ------------------------------------------
 
   it('Get a gram from the website', async () => {
 
@@ -142,6 +145,8 @@ describe('mockingly_instagram routes', () => {
     })
   });
 
+// ------------------------------------------
+
   it('Updates a gram on website', async () => {
 
     const response = await agent
@@ -161,6 +166,8 @@ describe('mockingly_instagram routes', () => {
     })
   });
 
+// ------------------------------------------
+
   it('DELETE a comment from a post', async () => {
 
     const response = await agent
@@ -172,8 +179,9 @@ describe('mockingly_instagram routes', () => {
       postId: '1',
       comment: "I'm here for this"
     })
-
   })
+
+// ------------------------------------------
 
   it('DELETE a post', async () => {
 
@@ -186,7 +194,6 @@ describe('mockingly_instagram routes', () => {
       caption: "felt cute might delete later, nah",
       tags: ['#sorrynotsorry', '#blessblessbless']
     })
-
   })
 
 });
