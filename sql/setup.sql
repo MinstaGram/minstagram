@@ -46,9 +46,9 @@ CREATE TABLE comments(
 
 -- ------------posts----------------------
 
-{
-"userId": "1",
-"photoUrl": "password",
-"caption": "caption for testing comments 1 user",
-"tags": "tag 1"
-}
+-- {
+-- "userId": "1",
+-- "photoUrl": "password",
+-- "caption": "caption for testing comments 1 user",
+-- "tags": "tag 1"
+-- }
