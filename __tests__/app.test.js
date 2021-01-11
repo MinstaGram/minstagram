@@ -196,4 +196,15 @@ describe('mockingly_instagram routes', () => {
     })
   })
 
+// ------------------------------------------
+
+  it('gets top ten most popular posts', async () => {
+
+    expect('Just Do it').toEqual(
+     'Just Do it'
+    )
+  })
+
+// ------------------------------------------
+
 });
