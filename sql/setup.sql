@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
 DROP TABLE IF EXISTS comments;
 
----------------------------------------------------
 
 CREATE TABLE users(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -29,26 +28,3 @@ CREATE TABLE comments(
 
 );
 
--- ------------users----------------------
-
--- {
--- "email":"user@test.com",
--- "password": "password"
--- }
-
--- ------------posts----------------------
-
--- {
--- "commentBy":"1",
--- "post": "1",
--- "comment": "caption for testing comments 1 user"
--- }
-
--- ------------posts----------------------
-
--- {
--- "userId": "1",
--- "photoUrl": "password",
--- "caption": "caption for testing comments 1 user",
--- "tags": "tag 1"
--- }
