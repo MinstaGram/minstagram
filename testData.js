@@ -4,7 +4,7 @@ const createUsers = () => {
     for (let i = 1; i < 11; i++) {
         userArray.push({
             email: `user${i}@test.com`,
-            password: 'password'
+            passwordHash: 'password'
         })
     }
     return userArray
