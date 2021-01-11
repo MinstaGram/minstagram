@@ -288,4 +288,12 @@ describe('mockingly_instagram tests posts/popular', () => {
     ]);
   });
 
+  it('GET top 10 most prolific users', async() => {
+    const response = await agent
+      .get('/api/v1/users/prolificUser')
+
+      expect(response.body).toEqual(
+        [{"email": "user1@test.com", "id": "1"}, {"email": "user6@test.com", "id": "45"}, {"email": "user1@test.com", "id": "5"}, {"email": "user6@test.com", "id": "44"}, {"email": "user7@test.com", "id": "47"}, {"email": "user2@test.com", "id": "12"}, {"email": "user2@test.com", "id": "18"}, {"email": "user7@test.com", "id": "49"}, {"email": "user1@test.com", "id": "6"}, {"email": "user8@test.com", "id": "52"}])
+  })
+
 });
