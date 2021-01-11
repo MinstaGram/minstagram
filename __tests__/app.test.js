@@ -4,6 +4,10 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 const { globalAgent } = require('https');
+const { createUsers, createPosts, createComments } = require('../testData.js')
+const Post = require('../lib/models/Post.js')
+const Comment = require('../lib/models/Comment.js')
+const User = require('../lib/models/User.js')
 
 
 describe('mockingly_instagram routes', () => {
@@ -14,8 +18,8 @@ describe('mockingly_instagram routes', () => {
     return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
   });
 
-  
-// ------------------------------------------
+
+  // ------------------------------------------
 
   it('allows a user to signup via POST', async () => {
     user = await request(app)
@@ -28,7 +32,7 @@ describe('mockingly_instagram routes', () => {
     });
   });
 
-// ------------------------------------------
+  // ------------------------------------------
 
   it('login via POST', async () => {
 
@@ -46,7 +50,7 @@ describe('mockingly_instagram routes', () => {
   });
 
 
-// ------------------------------------------
+  // ------------------------------------------
 
   it('verfy user', async () => {
 
@@ -59,7 +63,7 @@ describe('mockingly_instagram routes', () => {
     });
   });
 
-// ------------------------------------------
+  // ------------------------------------------
 
   it('POST a gram to the website', async () => {
 
@@ -188,5 +192,102 @@ describe('mockingly_instagram routes', () => {
     })
 
   })
+
+});
+
+describe('mockingly_instagram bonus routes', () => {
+  const agent = request.agent(app);
+
+  beforeAll(() => {
+    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
+  });
+
+  beforeAll(async () => {
+    const users = createUsers();
+
+    for (let user of users) {
+      const response = await User.insert(user)
+    }
+
+    const posts = await createPosts();
+    for (let post of posts) {
+      await Post.insert(post)
+    }
+
+    const comments = await createComments();
+    for (let comment of comments) {
+      await Comment.insert(comment)
+    }
+  })
+
+
+  it('test /post/popular', async () => {
+
+    const response = await request(app)
+      .get('/api/v1/posts/popular')
+
+    expect(response.body).toEqual([
+      {
+        userId: '10',
+        photoUrl: '{www.10.com}',
+        caption: 'picture of 10',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '9',
+        photoUrl: '{www.10.com}',
+        caption: 'picture of 9',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '9',
+        photoUrl: '{www.9.com}',
+        caption: 'picture of 9',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '8',
+        photoUrl: '{www.10.com}',
+        caption: 'picture of 8',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '8',
+        photoUrl: '{www.9.com}',
+        caption: 'picture of 8',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '8',
+        photoUrl: '{www.8.com}',
+        caption: 'picture of 8',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '7',
+        photoUrl: '{www.10.com}',
+        caption: 'picture of 7',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '7',
+        photoUrl: '{www.9.com}',
+        caption: 'picture of 7',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '7',
+        photoUrl: '{www.8.com}',
+        caption: 'picture of 7',
+        tags: ['#blessed', '#nofilter']
+      },
+      {
+        userId: '7',
+        photoUrl: '{www.7.com}',
+        caption: 'picture of 7',
+        tags: ['#blessed', '#nofilter']
+      }
+    ]);
+  });
 
 });
